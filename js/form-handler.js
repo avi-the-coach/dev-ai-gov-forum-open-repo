@@ -100,12 +100,17 @@ if (document.readyState === 'loading') {
     setupMobileButtons();
 }
 
-// Email validation
-document.getElementById('email').addEventListener('blur', function() {
-    const email = this.value;
+// Email validation function
+function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
-    if (email && !emailRegex.test(email)) {
+// Email validation on blur
+document.getElementById('email').addEventListener('blur', function() {
+    const email = this.value.trim();
+
+    if (email && !isValidEmail(email)) {
         this.style.borderColor = '#dc3545';
     } else {
         this.style.borderColor = '#333333';
@@ -124,12 +129,23 @@ function validateForm() {
     // Check if at least one tool is selected
     const toolsChecked = document.querySelectorAll('input[name="tools"]:checked').length > 0;
 
+    // Check all required fields
     if (!fullName || !email || !orgRole || !toolsChecked || !aiIs || !beforeAi || !futureAi) {
+        document.getElementById('errorMessage').textContent = '❌ אנא מלא את כל השדות החובה';
         document.getElementById('errorMessage').classList.add('visible');
         return false;
     }
 
+    // Validate email format
+    if (!isValidEmail(email)) {
+        document.getElementById('errorMessage').textContent = '❌ כתובת הדוא"ל אינה תקינה';
+        document.getElementById('errorMessage').classList.add('visible');
+        document.getElementById('email').style.borderColor = '#dc3545';
+        return false;
+    }
+
     document.getElementById('errorMessage').classList.remove('visible');
+    document.getElementById('email').style.borderColor = '#333333';
     return true;
 }
 

@@ -62,20 +62,42 @@ setupCheckboxLogic();
 
 // Detect if user is on mobile device
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Check user agent
+    const mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Also check screen width (more reliable)
+    const mobileWidth = window.innerWidth <= 768;
+    // Check touch capability
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    return mobileUA || (mobileWidth && hasTouch);
 }
 
-// Show/hide buttons based on device type
-if (isMobileDevice()) {
-    // Mobile: Hide Gmail and Outlook, show mobile email button
-    document.getElementById('gmailBtn').style.display = 'none';
-    document.getElementById('outlookBtn').style.display = 'none';
-    document.getElementById('mobileEmailBtn').style.display = 'flex';
+// Show/hide buttons based on device type - run when DOM is ready
+function setupMobileButtons() {
+    const isMobile = isMobileDevice();
+    console.log('Is mobile device:', isMobile); // Debug log
+
+    if (isMobile) {
+        // Mobile: Hide Gmail and Outlook, show mobile email button
+        document.getElementById('gmailBtn').style.display = 'none';
+        document.getElementById('outlookBtn').style.display = 'none';
+        document.getElementById('mobileEmailBtn').style.display = 'flex';
+    } else {
+        // Desktop: Show Gmail and Outlook, hide mobile email button
+        document.getElementById('gmailBtn').style.display = 'flex';
+        document.getElementById('outlookBtn').style.display = 'flex';
+        document.getElementById('mobileEmailBtn').style.display = 'none';
+    }
+}
+
+// Run when page loads
+window.addEventListener('DOMContentLoaded', setupMobileButtons);
+// Also run immediately in case DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    // Still loading, wait for DOMContentLoaded
 } else {
-    // Desktop: Show Gmail and Outlook, hide mobile email button
-    document.getElementById('gmailBtn').style.display = 'flex';
-    document.getElementById('outlookBtn').style.display = 'flex';
-    document.getElementById('mobileEmailBtn').style.display = 'none';
+    // DOM already loaded, run now
+    setupMobileButtons();
 }
 
 // Email validation

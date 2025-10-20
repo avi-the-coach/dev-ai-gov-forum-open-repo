@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הרשמה לוובינר - פיתוח AI באמצעות AI</title>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(147, 51, 234, 0.3);
+            overflow: hidden;
+            border: 2px solid #9333ea;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 3px solid #9333ea;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9333ea, #a855f7, #c084fc, #9333ea);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #9333ea; }
+            to { box-shadow: 0 0 20px #a855f7, 0 0 30px #c084fc; }
+        }
+
+        /* הוספת אפקט זוהר לכותרות */
+        .header h1 {
+            text-shadow: 0 0 10px #9333ea, 0 0 20px #a855f7;
+        }
+
+        .header p {
+            text-shadow: 0 0 5px #9333ea;
+        }
+
+        /* אפקט זוהר לטקסט בחלק הפרטים */
+        .detail-item strong {
+            color: #9333ea;
+            text-shadow: 0 0 3px #a855f7;
+        }
+
+        .detail-item {
+            color: #000000;
+        }
+
+        /* אפקט נוסף לשדות בפוקוס */
+        .form-control:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.2), 0 0 10px rgba(168, 85, 247, 0.5);
+            background: #faf5ff;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .webinar-details {
+            background: #ffffff;
+            color: #000000;
+            padding: 30px;
+            border-bottom: 2px solid #9333ea;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-icon {
+            width: 24px;
+            height: 24px;
+            margin-left: 15px;
+            color: #9333ea;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #333333;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            direction: rtl;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.2);
+            background: #faf5ff;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #9333ea 0%, #a855f7 50%, #c084fc 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(147, 51, 234, 0.4);
+            background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e879f9 100%);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message, .error-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .success-message {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #9333ea;
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+        }
+
+        .error-message {
+            background: #ffffff;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+
+        .footer {
+            background: #ffffff;
+            color: #333333;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 2px solid #9333ea;
+        }
+
+        .contact-links {
+            margin-top: 15px;
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            background: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-link:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .whatsapp-icon {
+            margin-left: 8px;
+            font-size: 1.2em;
+        }
+
+        .instructor-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #9333ea;
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
+        }
+
+        .instructor-info {
+            text-align: center;
+            flex: 1;
+        }
+
+        .instructor-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #9333ea;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(147, 51, 234, 0.3);
+        }
+
+        .instructor-title {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .instructor-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .webinar-details {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>הרשמה לוובינר</h1>
+            <p>פיתוח AI באמצעות AI - מתודולוגיות והדגמה עם קלוד קוד</p>
+        </div>
+
+        <!-- Webinar Details -->
+        <div class="webinar-details">
+            <div class="detail-item">
+                <svg class="detail-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+                <span><strong>תאריך:</strong> 2 בנובמבר 2025</span>
+            </div>
+            <div class="detail-item">
+                <svg class="detail-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                </svg>
+                <span><strong>שעה:</strong> 14:30</span>
+            </div>
+            <div class="detail-item">
+                <svg class="detail-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                </svg>
+                <span><strong>נושא:</strong> פיתוח AI באמצעות AI - מתודולוגיות והדגמה עם קלוד קוד</span>
+            </div>
+            
+            <!-- Instructor Profile Section -->
+            <div class="instructor-profile">
+                <img src="data:image/jpeg;base64,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" alt="אבי בכר" class="profile-image">
+                <div class="instructor-info">
+                    <div class="instructor-name">אבי בכר</div>
+                    <div class="instructor-title">מאמן ארגוני לטרנספורמציית AI אג'ילית</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container">
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="fullName">שם מלא <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">כתובת אימייל <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">מספר טלפון</label>
+                    <input type="tel" id="phone" name="phone" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="company">חברה/ארגון</label>
+                    <input type="text" id="company" name="company" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">רמת ניסיון ב-AI ופיתוח</label>
+                    <select id="experience" name="experience" class="form-control">
+                        <option value="">בחר/י רמת ניסיון</option>
+                        <option value="beginner">מתחיל/ה - חדש/ה לעולם ה-AI</option>
+                        <option value="intermediate">בינוני - יש ניסיון בסיסי</option>
+                        <option value="advanced">מתקדם/ת - עובד/ת עם AI באופן קבוע</option>
+                        <option value="expert">מומחה/ית - מפתח/ת פתרונות AI</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectations">מה אתם מצפים ללמוד על פיתוח AI?</label>
+                    <textarea id="expectations" name="expectations" class="form-control" rows="3" placeholder="ספרו לנו מה אתם רוצים ללמוד על פיתוח AI באמצעות AI, קלוד קוד, ומתודולוגיות..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span id="btnText">🤖 הירשמו לוובינר AI עכשיו</span>
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    🤖✅ ההרשמה בוצעה בהצלחה! קיבלתם אימייל אישור ואנחנו נשלח לכם את פרטי ההצטרפות לוובינר AI.
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ אירעה שגיאה בשליחת ההרשמה. אנא נסו שוב או צרו איתנו קשר ישירות.
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>יש לכם שאלות? צרו איתנו קשר:</p>
+            <div class="contact-links">
+                <a href="https://wa.me/972556665056?text=שלום,%20יש%20לי%20שאלה%20לגבי%20הוובינר%20על%20פיתוח%20AI" 
+                   target="_blank" 
+                   class="whatsapp-link">
+                    <span class="whatsapp-icon">📱</span>
+                    וואטסאפ: 055-666-5056
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // אתחול EmailJS - יש להחליף את YOUR_PUBLIC_KEY במפתח שלכם
+        emailjs.init('YOUR_PUBLIC_KEY');
+
+        // הגדרות EmailJS - יש להחליף את הערכים האלה
+        const EMAIL_CONFIG = {
+            serviceId: 'YOUR_SERVICE_ID',
+            templateId: 'YOUR_TEMPLATE_ID',
+            adminEmail: 'avi@example.com', // עדכנו את האימייל שלכם כאן
+            webinarName: 'פיתוח AI באמצעות AI - מתודולוגיות והדגמה עם קלוד קוד',
+            webinarDate: '2 בנובמבר 2025',
+            webinarTime: '14:30'
+        };
+
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const loading = document.getElementById('loading');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // הסתרת הודעות קודמות
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // החלפה למצב טעינה
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            loading.style.display = 'block';
+            
+            // איסוף נתוני הטופס
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value || 'לא צוין',
+                company: document.getElementById('company').value || 'לא צוין',
+                experience: document.getElementById('experience').value || 'לא צוין',
+                expectations: document.getElementById('expectations').value || 'לא צוין',
+                registrationDate: new Date().toLocaleDateString('he-IL'),
+                registrationTime: new Date().toLocaleTimeString('he-IL'),
+                webinarName: EMAIL_CONFIG.webinarName,
+                webinarDate: EMAIL_CONFIG.webinarDate,
+                webinarTime: EMAIL_CONFIG.webinarTime
+            };
+            
+            try {
+                // שליחת אימייל למנהל
+                await emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, {
+                    to_email: EMAIL_CONFIG.adminEmail,
+                    subject: `הרשמה חדשה לוובינר: ${formData.fullName}`,
+                    participant_name: formData.fullName,
+                    participant_email: formData.email,
+                    participant_phone: formData.phone,
+                    participant_company: formData.company,
+                    participant_experience: formData.experience,
+                    participant_expectations: formData.expectations,
+                    registration_date: formData.registrationDate,
+                    registration_time: formData.registrationTime,
+                    webinar_name: formData.webinarName,
+                    webinar_date: formData.webinarDate,
+                    webinar_time: formData.webinarTime
+                });
+                
+                // שליחת אימייל אישור למשתתף
+                await emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, {
+                    to_email: formData.email,
+                    subject: `אישור הרשמה לוובינר: ${formData.webinarName}`,
+                    participant_name: formData.fullName,
+                    webinar_name: formData.webinarName,
+                    webinar_date: formData.webinarDate,
+                    webinar_time: formData.webinarTime,
+                    message: `שלום ${formData.fullName},
+                    
+תודה על ההרשמה לוובינר "${formData.webinarName}".
+
+פרטי הוובינר:
+📅 תאריך: ${formData.webinarDate}
+🕐 שעה: ${formData.webinarTime}
+
+נשלח אליכם את קישור ההצטרפה ביום הוובינר.
+
+בברכה,
+צוות הוובינר`
+                });
+                
+                // הצגת הודעת הצלחה
+                successMessage.style.display = 'block';
+                document.getElementById('registrationForm').reset();
+                
+                // גלילה להודעת ההצלחה
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('שגיאה בשליחת האימייל:', error);
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // החזרה למצב רגיל
+            submitBtn.disabled = false;
+            btnText.style.display = 'block';
+            loading.style.display = 'none';
+        });
+
+        // ולידציה דינמית
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#e9ecef';
+            }
+        });
+    </script>
+</body>
+</html>

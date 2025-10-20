@@ -182,7 +182,8 @@ function getToolsText() {
 }
 
 // Gmail button
-document.getElementById('gmailBtn').addEventListener('click', function() {
+document.getElementById('gmailBtn').addEventListener('click', function(event) {
+    event.preventDefault();
     if (!validateForm()) return;
 
     const fullName = document.getElementById('fullName').value.trim();
@@ -212,7 +213,8 @@ ${email}`;
 });
 
 // WhatsApp button
-document.getElementById('whatsappBtn').addEventListener('click', function() {
+document.getElementById('whatsappBtn').addEventListener('click', function(event) {
+    event.preventDefault();
     if (!validateForm()) return;
 
     const fullName = document.getElementById('fullName').value.trim();
@@ -240,7 +242,8 @@ ${toolsText}
 });
 
 // Outlook button
-document.getElementById('outlookBtn').addEventListener('click', function() {
+document.getElementById('outlookBtn').addEventListener('click', function(event) {
+    event.preventDefault();
     if (!validateForm()) return;
 
     const fullName = document.getElementById('fullName').value.trim();
@@ -270,7 +273,8 @@ ${email}`;
 });
 
 // Mobile Email button (mailto)
-document.getElementById('mobileEmailBtn').addEventListener('click', function() {
+document.getElementById('mobileEmailBtn').addEventListener('click', function(event) {
+    event.preventDefault();
     if (!validateForm()) return;
 
     const fullName = document.getElementById('fullName').value.trim();

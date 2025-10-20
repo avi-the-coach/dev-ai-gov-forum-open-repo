@@ -60,6 +60,24 @@ function setupCheckboxLogic() {
 // Initialize checkbox logic
 setupCheckboxLogic();
 
+// Detect if user is on mobile device
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Show/hide buttons based on device type
+if (isMobileDevice()) {
+    // Mobile: Hide Gmail and Outlook, show mobile email button
+    document.getElementById('gmailBtn').style.display = 'none';
+    document.getElementById('outlookBtn').style.display = 'none';
+    document.getElementById('mobileEmailBtn').style.display = 'flex';
+} else {
+    // Desktop: Show Gmail and Outlook, hide mobile email button
+    document.getElementById('gmailBtn').style.display = 'flex';
+    document.getElementById('outlookBtn').style.display = 'flex';
+    document.getElementById('mobileEmailBtn').style.display = 'none';
+}
+
 // Email validation
 document.getElementById('email').addEventListener('blur', function() {
     const email = this.value;
@@ -185,6 +203,36 @@ ${toolsText}
 
 // Outlook button
 document.getElementById('outlookBtn').addEventListener('click', function() {
+    if (!validateForm()) return;
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const orgRole = document.getElementById('orgRole').value.trim();
+    const aiIs = document.getElementById('aiIs').value.trim();
+    const beforeAi = document.getElementById('beforeAi').value.trim();
+    const futureAi = document.getElementById('futureAi').value.trim();
+    const toolsText = getToolsText();
+
+    const subject = `${fullName}, ${orgRole}, נרשם לוובינר פיתוח AI בעזרת AI ב 2-11-25`;
+    const body = `שלום אבי,
+נרשמתי לוובינר פיתוח AI בעזרת AI ב 2-11-25
+
+${toolsText}
+
+בנוסף רציתי לומר שבעיני AI זה ${aiIs} ושלפני ה AI ${beforeAi}
+וכמו שזה נראה לי בעוד 5 שנים AI ${futureAi}
+
+תודה רבה ונתראה בוובינר
+${fullName}
+${orgRole}
+${email}`;
+
+    const mailtoLink = `mailto:avi.bachar@agileprimero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+});
+
+// Mobile Email button (mailto)
+document.getElementById('mobileEmailBtn').addEventListener('click', function() {
     if (!validateForm()) return;
 
     const fullName = document.getElementById('fullName').value.trim();

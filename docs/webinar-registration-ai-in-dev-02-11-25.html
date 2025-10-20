@@ -122,7 +122,7 @@
 
                     <div class="completion-item">
                         <span class="completion-phrase">ככל שאני זוכר לפני AI...</span>
-                        <textarea id="beforeAi" name="beforeAi" class="form-control completion-field" placeholder="השלם את המי..." required></textarea>
+                        <textarea id="beforeAi" name="beforeAi" class="form-control completion-field" placeholder="השלם את המשפט..." required></textarea>
                     </div>
 
                     <div class="completion-item">
@@ -136,14 +136,22 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="submit-btn btn-gmail" id="gmailBtn">
-                        📧 שלח דרך Gmail
-                    </button>
+                    <!-- WhatsApp - Always first -->
                     <button type="button" class="submit-btn btn-whatsapp" id="whatsappBtn">
                         📱 שלח דרך WhatsApp
                     </button>
+
+                    <!-- Desktop buttons (Gmail + Outlook) -->
+                    <button type="button" class="submit-btn btn-gmail" id="gmailBtn">
+                        📧 שלח דרך Gmail
+                    </button>
                     <button type="button" class="submit-btn btn-outlook" id="outlookBtn">
                         📨 שלח דרך Outlook
+                    </button>
+
+                    <!-- Mobile button (mailto) -->
+                    <button type="button" class="submit-btn btn-mobile-email" id="mobileEmailBtn" style="display: none;">
+                        📧 שלח באמצעות מייל
                     </button>
                 </div>
             </form>

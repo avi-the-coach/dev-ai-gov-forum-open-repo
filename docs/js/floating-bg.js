@@ -96,7 +96,9 @@ class FloatingBackground {
 
             // Add double-click handler for blowing up logos
             logo.addEventListener('dblclick', (e) => {
+                console.log('Logo double-clicked!');
                 e.preventDefault();
+                e.stopPropagation();
                 this.blowUpLogo(logoData);
             });
 

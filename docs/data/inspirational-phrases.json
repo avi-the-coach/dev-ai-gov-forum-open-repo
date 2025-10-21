@@ -1,0 +1,120 @@
+{
+  "phrases": [
+    {
+      "text": "איזה יופי שאתה בא.",
+      "condition": null
+    },
+    {
+      "text": "נראה אותך שם?",
+      "condition": null
+    },
+    {
+      "text": "אומרים שיהיה מעולה.",
+      "condition": null
+    },
+    {
+      "text": "תבוא לדעתי יהיה מעניין.",
+      "condition": null
+    },
+    {
+      "text": "איך קוראים לך אתה אומר?",
+      "condition": "field_empty:fullName"
+    },
+    {
+      "text": "<fullName> איזה כייף?",
+      "condition": "field_filled:fullName"
+    },
+    {
+      "text": "נעים מאוד <fullName> אני קלוד",
+      "condition": "field_filled:fullName"
+    },
+    {
+      "text": "אז בעצם מאיפה אתה בממשלה?",
+      "condition": "field_empty:organization"
+    },
+    {
+      "text": "וואו אתה מ<organization>, תגיד מכיר את...?",
+      "condition": "field_filled:organization"
+    },
+    {
+      "text": "תגיד אם אתה מ<organization> בדיוק רציתי לשאול אותך...",
+      "condition": "field_filled:organization"
+    },
+    {
+      "text": "שמעתי ה AI כבר הגיע ל<organization>",
+      "condition": "field_filled:organization"
+    },
+    {
+      "text": "אז תגיד מה אתה בעצם עושה?",
+      "condition": "field_empty:jobTitle AND field_empty:organization"
+    },
+    {
+      "text": "אז תגיד מה אתה בעצם עושה ב<organization>?",
+      "condition": "field_empty:jobTitle AND field_filled:organization"
+    },
+    {
+      "text": "תגיד איך <jobTitle> משתמש ב AI?",
+      "condition": "field_filled:jobTitle AND field_empty:organization"
+    },
+    {
+      "text": "<jobTitle> ב<organization>, וואלה מעניין.",
+      "condition": "field_filled:jobTitle AND field_filled:organization"
+    },
+    {
+      "text": "קלוד קוד אגב זה אחד הכלים הכי מתקדמים בתחום, יפה.",
+      "condition": "tool_selected:Claude Code"
+    },
+    {
+      "text": "ידעת שלג'ימיני יש קונטקסט של מליון טוקנים?",
+      "condition": "tool_selected:Gemini CLI/Code Assist"
+    },
+    {
+      "text": "אומרים שהמומחיות של Q של אמזון זה שהוא מכיר את אמזון. מעולה.",
+      "condition": "tool_selected:Amazon Q"
+    },
+    {
+      "text": "קופיילוט היה הראשון שהגיע לעולם הפיתוח.",
+      "condition": "tool_selected:CoPilot"
+    },
+    {
+      "text": "זה מעולה, אני מקווה שכבר אחרי הוובינר תמצא עוזר פיתוח.",
+      "condition": "tool_selected:לא משתמש אבל רוצה להשתמש"
+    },
+    {
+      "text": "אז אתה אומר: <otherTool>, מעניין אומר.",
+      "condition": "tool_selected:other AND field_filled:otherTool"
+    },
+    {
+      "text": "דרך הכפתור הירוק אתה שולח אלי לוואצאפ, אבל יש לך שדות לא מלאים.",
+      "condition": "form_incomplete"
+    },
+    {
+      "text": "דרך הכפתור האדום אתה שולח אלי למייל, אבל יש לך שדות לא מלאים.",
+      "condition": "form_incomplete"
+    },
+    {
+      "text": "דרך הכפתור הירוק אתה שולח אלי לוואצאפ",
+      "condition": "form_complete"
+    },
+    {
+      "text": "דרך הכפתור האדום אתה שולח אלי למייל",
+      "condition": "form_complete"
+    },
+    {
+      "text": "כבר לחצת על הכותרת השחורה?",
+      "condition": "fireworks_never_clicked"
+    },
+    {
+      "text": "תנסה את הכותרת השחורה שוב, זה מגניב?",
+      "condition": "fireworks_clicked_once"
+    },
+    {
+      "text": "מה אתה אומר? AI מחליף אותנו? (רגע אני לא בנאדם)",
+      "condition": null
+    },
+    {
+      "text": "כבר היית בוובינר על AI?",
+      "condition": null
+    }
+  ]
+}

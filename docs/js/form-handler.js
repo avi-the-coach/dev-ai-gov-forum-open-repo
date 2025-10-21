@@ -121,7 +121,8 @@ document.getElementById('email').addEventListener('blur', function() {
 function validateForm() {
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const orgRole = document.getElementById('orgRole').value.trim();
+    const organization = document.getElementById('organization').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
     const aiIs = document.getElementById('aiIs').value.trim();
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
@@ -130,7 +131,7 @@ function validateForm() {
     const toolsChecked = document.querySelectorAll('input[name="tools"]:checked').length > 0;
 
     // Check all required fields
-    if (!fullName || !email || !orgRole || !toolsChecked || !aiIs || !beforeAi || !futureAi) {
+    if (!fullName || !email || !organization || !jobTitle || !toolsChecked || !aiIs || !beforeAi || !futureAi) {
         document.getElementById('errorMessage').textContent = '❌ אנא מלא את כל השדות החובה';
         document.getElementById('errorMessage').classList.add('visible');
         return false;
@@ -188,7 +189,9 @@ document.getElementById('gmailBtn').addEventListener('click', function(event) {
 
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const orgRole = document.getElementById('orgRole').value.trim();
+    const organization = document.getElementById('organization').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const orgRole = `${organization}-${jobTitle}`;
     const aiIs = document.getElementById('aiIs').value.trim();
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
@@ -219,7 +222,9 @@ document.getElementById('whatsappBtn').addEventListener('click', function(event)
 
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const orgRole = document.getElementById('orgRole').value.trim();
+    const organization = document.getElementById('organization').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const orgRole = `${organization}-${jobTitle}`;
     const aiIs = document.getElementById('aiIs').value.trim();
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
@@ -248,7 +253,9 @@ document.getElementById('outlookBtn').addEventListener('click', function(event) 
 
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const orgRole = document.getElementById('orgRole').value.trim();
+    const organization = document.getElementById('organization').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const orgRole = `${organization}-${jobTitle}`;
     const aiIs = document.getElementById('aiIs').value.trim();
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
@@ -279,7 +286,9 @@ document.getElementById('mobileEmailBtn').addEventListener('click', function(eve
 
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const orgRole = document.getElementById('orgRole').value.trim();
+    const organization = document.getElementById('organization').value.trim();
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const orgRole = `${organization}-${jobTitle}`;
     const aiIs = document.getElementById('aiIs').value.trim();
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();

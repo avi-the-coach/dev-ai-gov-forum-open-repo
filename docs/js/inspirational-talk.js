@@ -292,7 +292,6 @@ class InspirationalTalk {
             transform: translateY(20px);
             transition: all 0.5s ease-out;
             pointer-events: auto;
-            z-index: 2;
             cursor: pointer;
             background-image: url('assets/${bubbleFile}');
             background-size: contain;

@@ -1,0 +1,108 @@
+/* Analytics Opt-in Checkbox */
+.analytics-optin {
+    margin: 15px 0 15px 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.analytics-optin input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #9333ea;
+    flex-shrink: 0;
+}
+
+.analytics-optin label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #333333;
+    cursor: pointer;
+    gap: 6px;
+    margin: 0;
+    position: relative;
+}
+
+.info-icon {
+    font-size: 0.9rem;
+    color: #9333ea;
+    cursor: help;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.2s ease;
+    user-select: none;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.info-icon:hover {
+    background: #e9d5ff;
+    transform: scale(1.15);
+}
+
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    width: max-content;
+    max-width: 350px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 99999;
+    pointer-events: none;
+    direction: rtl;
+    text-align: right;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    white-space: normal;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1a1a1a;
+}
+
+.info-icon:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Allow tooltip to overflow form container */
+.form-container {
+    overflow: visible !important;
+}
+
+/* Mobile Responsiveness for Analytics Opt-in */
+@media (max-width: 768px) {
+    .tooltip {
+        max-width: 250px;
+        font-size: 0.8rem;
+    }
+    
+    .analytics-optin {
+        margin: 15px 20px;
+        padding: 12px;
+    }
+}

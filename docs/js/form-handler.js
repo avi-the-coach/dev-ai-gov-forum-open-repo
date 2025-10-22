@@ -150,6 +150,199 @@ function validateForm() {
     return true;
 }
 
+// Function to get device type text
+function getDeviceTypeText() {
+    return isMobileDevice() ? 'נשלח ממובייל' : 'נשלח מדסקטופ';
+}
+
+// Analytics data collection
+const pageAnalytics = {
+    pageLoadTime: Date.now(),
+    fireworksClicks: 0,
+    formFieldInteractions: {},
+    descriptionExpanded: false,
+    logoBlowingScore: 0
+};
+
+// Track fireworks clicks
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('header');
+    if (header) {
+        header.addEventListener('click', function() {
+            pageAnalytics.fireworksClicks++;
+        });
+    }
+    
+    // Track description expansion (on hover)
+    const instructorInfo = document.getElementById('instructorInfoHover');
+    if (instructorInfo) {
+        instructorInfo.addEventListener('mouseenter', function() {
+            pageAnalytics.descriptionExpanded = true;
+        });
+        
+        // Also track on touch for mobile (fallback to click)
+        instructorInfo.addEventListener('click', function() {
+            pageAnalytics.descriptionExpanded = true;
+        });
+    }
+    
+    // Track form field interactions
+    const formFields = ['fullName', 'email', 'organization', 'jobTitle', 'aiIs', 'beforeAi', 'futureAi'];
+    formFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('focus', function() {
+                if (!pageAnalytics.formFieldInteractions[fieldId]) {
+                    pageAnalytics.formFieldInteractions[fieldId] = { focused: 0, changed: 0 };
+                }
+                pageAnalytics.formFieldInteractions[fieldId].focused++;
+            });
+            field.addEventListener('change', function() {
+                if (!pageAnalytics.formFieldInteractions[fieldId]) {
+                    pageAnalytics.formFieldInteractions[fieldId] = { focused: 0, changed: 0 };
+                }
+                pageAnalytics.formFieldInteractions[fieldId].changed++;
+            });
+        }
+    });
+});
+
+// Function to get comprehensive analytics data
+function getAnalyticsData() {
+    const timeOnPage = Math.floor((Date.now() - pageAnalytics.pageLoadTime) / 1000); // seconds
+    const minutes = Math.floor(timeOnPage / 60);
+    const seconds = timeOnPage % 60;
+    
+    // Browser detection
+    const ua = navigator.userAgent;
+    let browserName = 'Unknown';
+    let browserVersion = '';
+    
+    if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) {
+        browserName = 'Chrome';
+        browserVersion = ua.match(/Chrome\/(\d+)/)?.[1] || '';
+    } else if (ua.indexOf('Edg') > -1) {
+        browserName = 'Edge';
+        browserVersion = ua.match(/Edg\/(\d+)/)?.[1] || '';
+    } else if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) {
+        browserName = 'Safari';
+        browserVersion = ua.match(/Version\/(\d+)/)?.[1] || '';
+    } else if (ua.indexOf('Firefox') > -1) {
+        browserName = 'Firefox';
+        browserVersion = ua.match(/Firefox\/(\d+)/)?.[1] || '';
+    }
+    
+    // Operating System detection
+    let osName = 'Unknown';
+    if (ua.indexOf('Win') > -1) osName = 'Windows';
+    else if (ua.indexOf('Mac') > -1) osName = 'MacOS';
+    else if (ua.indexOf('Linux') > -1) osName = 'Linux';
+    else if (ua.indexOf('Android') > -1) osName = 'Android';
+    else if (ua.indexOf('iOS') > -1 || ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) osName = 'iOS';
+    
+    // Screen info
+    const screenInfo = `${window.screen.width}x${window.screen.height}`;
+    const viewportInfo = `${window.innerWidth}x${window.innerHeight}`;
+    
+    // Referrer
+    const referrer = document.referrer || 'Direct';
+    const referrerDomain = referrer !== 'Direct' ? new URL(referrer).hostname : 'Direct';
+    
+    // Language
+    const language = navigator.language || navigator.userLanguage;
+    
+    // Connection type (if available)
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const connectionType = connection ? connection.effectiveType : 'Unknown';
+    
+    // Build analytics summary
+    let analyticsText = `
+📊 נתוני שימוש:
+• זמן בדף: ${minutes}:${seconds.toString().padStart(2, '0')} דקות
+• דפדפן: ${browserName}${browserVersion ? ' ' + browserVersion : ''}
+• מערכת הפעלה: ${osName}
+• רזולוציה: ${screenInfo} (חלון: ${viewportInfo})
+• מקור: ${referrerDomain}
+• שפה: ${language}`;
+
+    if (connectionType !== 'Unknown') {
+        analyticsText += `\n• סוג חיבור: ${connectionType}`;
+    }
+    
+    // Interaction data
+    analyticsText += `\n• לחיצות על זיקוקים: ${pageAnalytics.fireworksClicks}`;
+    analyticsText += `\n• הרחבת תיאור: ${pageAnalytics.descriptionExpanded ? 'כן' : 'לא'}`;
+    
+    // Form field edits count
+    const totalEdits = Object.values(pageAnalytics.formFieldInteractions)
+        .reduce((sum, field) => sum + field.changed, 0);
+    if (totalEdits > 0) {
+        analyticsText += `\n• עריכות שדות: ${totalEdits}`;
+    }
+    
+    return analyticsText;
+}
+
+// Function to get compact analytics data (for opt-in checkbox)
+function getCompactAnalyticsData() {
+    const timeOnPage = Math.floor((Date.now() - pageAnalytics.pageLoadTime) / 1000);
+    const minutes = Math.floor(timeOnPage / 60);
+    const seconds = timeOnPage % 60;
+    const timeFormatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Browser detection
+    const ua = navigator.userAgent;
+    let browserName = 'Unknown';
+    
+    if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) {
+        browserName = 'Chrome';
+    } else if (ua.indexOf('Edg') > -1) {
+        browserName = 'Edge';
+    } else if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) {
+        browserName = 'Safari';
+    } else if (ua.indexOf('Firefox') > -1) {
+        browserName = 'Firefox';
+    }
+    
+    // Operating System detection
+    let osName = 'Unknown';
+    if (ua.indexOf('Win') > -1) osName = 'Windows';
+    else if (ua.indexOf('Mac') > -1) osName = 'MacOS';
+    else if (ua.indexOf('Linux') > -1) osName = 'Linux';
+    else if (ua.indexOf('Android') > -1) osName = 'Android';
+    else if (ua.indexOf('iOS') > -1 || ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) osName = 'iOS';
+    
+    // Referrer
+    const referrer = document.referrer || 'Direct';
+    const source = referrer !== 'Direct' ? new URL(referrer).hostname : 'Direct';
+    
+    // Get logo blowing score from FloatingBackground if available
+    let logoScore = 0;
+    const scoreDisplay = document.getElementById('score-display');
+    if (scoreDisplay) {
+        const scoreText = scoreDisplay.textContent;
+        const scoreMatch = scoreText.match(/(\d+)/);
+        if (scoreMatch) {
+            logoScore = parseInt(scoreMatch[1]);
+        }
+    }
+    
+    // Build compact format with spacing and divider
+    const compactData = `
+
+----------
+
+time: ${timeFormatted}
+browser: ${browserName}
+os: ${osName}
+source: ${source}
+fw clicks: ${pageAnalytics.fireworksClicks}
+content: ${pageAnalytics.descriptionExpanded ? 'yes' : 'no'}
+score: ${logoScore}`;
+    
+    return compactData;
+}
+
 // Function to get selected tools text
 function getToolsText() {
     const checkboxes = document.querySelectorAll('input[name="tools"]:checked');
@@ -196,6 +389,10 @@ document.getElementById('gmailBtn').addEventListener('click', function(event) {
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
     const toolsText = getToolsText();
+    
+    // Check if analytics opt-in is checked
+    const analyticsOptIn = document.getElementById('analyticsOptin').checked;
+    const analyticsData = analyticsOptIn ? getCompactAnalyticsData() : '';
 
     const subject = `${fullName}, ${orgRole}, נרשם לוובינר פיתוח AI בעזרת AI ב 2-11-25`;
     const body = `שלום אבי,
@@ -209,7 +406,7 @@ ${toolsText}
 תודה רבה ונתראה בוובינר
 ${fullName}
 ${orgRole}
-${email}`;
+${email}${analyticsData}`;
 
     const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=avi.bachar@agileprimero.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink, '_blank');
@@ -229,6 +426,10 @@ document.getElementById('whatsappBtn').addEventListener('click', function(event)
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
     const toolsText = getToolsText();
+    
+    // Check if analytics opt-in is checked
+    const analyticsOptIn = document.getElementById('analyticsOptin').checked;
+    const analyticsData = analyticsOptIn ? getCompactAnalyticsData() : '';
 
     const message = `שלום אבי,
 שמי ${fullName}, ${orgRole}
@@ -240,7 +441,7 @@ ${toolsText}
 וכמו שזה נראה לי בעוד 5 שנים AI ${futureAi}
 
 תודה רבה ונתראה בוובינר
-המייל שלי לכל צורך : ${email}`;
+המייל שלי לכל צורך : ${email}${analyticsData}`;
 
     const whatsappLink = `https://wa.me/972556665056?text=${encodeURIComponent(message)}`;
     window.open(whatsappLink, '_blank');
@@ -260,6 +461,10 @@ document.getElementById('outlookBtn').addEventListener('click', function(event) 
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
     const toolsText = getToolsText();
+    
+    // Check if analytics opt-in is checked
+    const analyticsOptIn = document.getElementById('analyticsOptin').checked;
+    const analyticsData = analyticsOptIn ? getCompactAnalyticsData() : '';
 
     const subject = `${fullName}, ${orgRole}, נרשם לוובינר פיתוח AI בעזרת AI ב 2-11-25`;
     const body = `שלום אבי,
@@ -273,7 +478,7 @@ ${toolsText}
 תודה רבה ונתראה בוובינר
 ${fullName}
 ${orgRole}
-${email}`;
+${email}${analyticsData}`;
 
     const mailtoLink = `mailto:avi.bachar@agileprimero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
@@ -293,6 +498,10 @@ document.getElementById('mobileEmailBtn').addEventListener('click', function(eve
     const beforeAi = document.getElementById('beforeAi').value.trim();
     const futureAi = document.getElementById('futureAi').value.trim();
     const toolsText = getToolsText();
+    
+    // Check if analytics opt-in is checked
+    const analyticsOptIn = document.getElementById('analyticsOptin').checked;
+    const analyticsData = analyticsOptIn ? getCompactAnalyticsData() : '';
 
     const subject = `${fullName}, ${orgRole}, נרשם לוובינר פיתוח AI בעזרת AI ב 2-11-25`;
     const body = `שלום אבי,
@@ -306,7 +515,7 @@ ${toolsText}
 תודה רבה ונתראה בוובינר
 ${fullName}
 ${orgRole}
-${email}`;
+${email}${analyticsData}`;
 
     const mailtoLink = `mailto:avi.bachar@agileprimero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;

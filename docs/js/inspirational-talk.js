@@ -12,8 +12,32 @@ class InspirationalTalk {
         this.messageSpeedMultiplier = 1; // Can be controlled from settings
         this.container = null;
         this.fireworksClickCount = 0;
+        this.audioContext = null;
 
         this.init();
+    }
+    
+    playBeepSound() {
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const now = this.audioContext.currentTime;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, now);
+        
+        gainNode.gain.setValueAtTime(0.08, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        
+        oscillator.start(now);
+        oscillator.stop(now + 0.1);
     }
 
     async init() {
@@ -385,6 +409,9 @@ class InspirationalTalk {
             if (data.animationFrame) {
                 cancelAnimationFrame(data.animationFrame);
             }
+            
+            // Play beep sound on hover
+            this.playBeepSound();
 
             messageEl.style.filter = 'drop-shadow(0 12px 35px rgba(147, 51, 234, 0.6))';
             const currentTransform = messageEl.style.transform;

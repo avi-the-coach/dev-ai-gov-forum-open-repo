@@ -106,9 +106,54 @@ class FloatingBackground {
         }
     }
 
+    playExplosionSound() {
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const now = this.audioContext.currentTime;
+        
+        // Main explosion boom (low frequency sweep)
+        const oscillator1 = this.audioContext.createOscillator();
+        const gainNode1 = this.audioContext.createGain();
+        
+        oscillator1.connect(gainNode1);
+        gainNode1.connect(this.audioContext.destination);
+        
+        oscillator1.type = 'sawtooth';
+        oscillator1.frequency.setValueAtTime(150, now);
+        oscillator1.frequency.exponentialRampToValueAtTime(30, now + 0.8);
+        
+        gainNode1.gain.setValueAtTime(0.3, now);
+        gainNode1.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+        
+        oscillator1.start(now);
+        oscillator1.stop(now + 0.8);
+        
+        // High frequency "crack" for impact
+        const oscillator2 = this.audioContext.createOscillator();
+        const gainNode2 = this.audioContext.createGain();
+        
+        oscillator2.connect(gainNode2);
+        gainNode2.connect(this.audioContext.destination);
+        
+        oscillator2.type = 'square';
+        oscillator2.frequency.setValueAtTime(1200, now);
+        oscillator2.frequency.exponentialRampToValueAtTime(100, now + 0.15);
+        
+        gainNode2.gain.setValueAtTime(0.15, now);
+        gainNode2.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        
+        oscillator2.start(now);
+        oscillator2.stop(now + 0.15);
+    }
+
     blowUpLogo(logoData) {
         const logo = logoData.element;
         const rect = logo.getBoundingClientRect();
+        
+        // Play explosion sound
+        this.playExplosionSound();
         
         // Explosion animation
         logo.style.transition = 'all 0.3s ease-out';
@@ -469,5 +514,5 @@ class FloatingBackground {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new FloatingBackground();
+    window.floatingBg = new FloatingBackground();
 });

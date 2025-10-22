@@ -35,6 +35,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/styles-analytics-addon.css">
 </head>
 <body>
     <!-- Floating Background -->
@@ -190,6 +191,22 @@
                     ❌ אנא מלא את כל השדות החובה
                 </div>
 
+                <!-- Analytics Opt-in Checkbox -->
+                <div class="analytics-optin">
+                    <input type="checkbox" id="analyticsOptin" name="analyticsOptin" checked>
+                    <label for="analyticsOptin">
+                        אשמח לעזור לך לשפר את הטופס
+                        <span class="info-icon" id="analyticsTooltipIcon">ℹ️
+                            <div class="tooltip" id="analyticsTooltip">
+                                לשליחת הטופס יצטרפו הנתונים הבאים שיעזרו לי לשפר את השימושיות:<br>
+                                זמן שהייה בטופס, סוג דפדפן, מערכת הפעלה, לחיצות זיקוקי דינור, פתיחת תוכן וובינר וסה"כ נקודות צבירה.<br>
+                                תתאפשר עריכת הנתונים לפני השליחה.<br>
+                                תודה רבה על עזרתך.
+                            </div>
+                        </span>
+                    </label>
+                </div>
+
                 <div class="button-group">
                     <!-- WhatsApp - Always first -->
                     <button type="button" class="submit-btn btn-whatsapp" id="whatsappBtn">
@@ -224,5 +241,6 @@
     <script src="js/floating-bg.js"></script>
     <script src="js/expand-description.js"></script>
     <script src="js/inspirational-talk.js"></script>
+    <script src="js/alien-spaceship.js"></script>
 </body>
 </html>

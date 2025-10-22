@@ -33,7 +33,7 @@ class InspirationalTalk {
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 2;
+            z-index: 0;
         `;
         document.body.appendChild(this.container);
     }

@@ -1,0 +1,558 @@
+/**
+ * Game Mode Styles
+ * Styles for team competition leaderboards and game UI
+ * Hidden by default, shown only in game mode
+ */
+
+/* ===== Game On Indicator ===== */
+#gameOnIndicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ed573 0%, #26de81 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(46, 213, 115, 0.6);
+    animation: jellyfish-pulse 2s ease-in-out infinite;
+    display: none;
+}
+
+#gameOnIndicator:hover {
+    animation: jellyfish-pulse-fast 1s ease-in-out infinite;
+}
+
+@keyframes jellyfish-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(46, 213, 115, 0.6);
+    }
+    50% {
+        transform: scale(1.15);
+        box-shadow: 0 8px 40px rgba(46, 213, 115, 0.9);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(46, 213, 115, 0.6);
+    }
+}
+
+@keyframes jellyfish-pulse-fast {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(46, 213, 115, 0.6);
+    }
+    50% {
+        transform: scale(1.2);
+        box-shadow: 0 10px 50px rgba(46, 213, 115, 1);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(46, 213, 115, 0.6);
+    }
+}
+
+/* ===== Registration Popup ===== */
+#gameRegistrationPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(147, 51, 234, 0.2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+    backdrop-filter: blur(10px);
+}
+
+.game-registration-modal {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(147, 51, 234, 0.4);
+    border: 3px solid #9333ea;
+    position: relative;
+    direction: rtl;
+    text-align: center;
+}
+
+.game-registration-modal h2 {
+    color: #9333ea;
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+}
+
+.game-registration-modal p {
+    color: #333;
+    margin: 0 0 30px 0;
+    line-height: 1.6;
+}
+
+.close-game-popup {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    color: #9333ea;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-game-popup:hover {
+    background: rgba(147, 51, 234, 0.1);
+    color: #a855f7;
+    transform: rotate(90deg);
+}
+
+.game-form-group {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.game-form-group label {
+    display: block;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.game-form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    background: #f9f9f9;
+    color: #000;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    direction: rtl;
+}
+
+.game-form-group input:focus {
+    outline: none;
+    border-color: #9333ea;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.2);
+}
+
+.game-register-btn {
+    width: 100%;
+    padding: 15px;
+    background: #9333ea;
+    color: white;
+    border: 2px solid #9333ea;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.game-register-btn:hover {
+    transform: translateY(-2px);
+    background: #a855f7;
+    border-color: #a855f7;
+    box-shadow: 0 5px 20px rgba(147, 51, 234, 0.5);
+}
+
+#gameRegistrationError {
+    color: #ff4757;
+    padding: 10px;
+    background: rgba(255, 71, 87, 0.1);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+}
+
+/* ===== Welcome Toast ===== */
+.game-welcome-toast {
+    position: fixed;
+    top: 100px;
+    right: 50%;
+    transform: translateX(50%) translateY(-200px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+    z-index: 10002;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    direction: rtl;
+    text-align: center;
+    max-width: 80%;
+}
+
+.game-welcome-toast.show {
+    transform: translateX(50%) translateY(0);
+    opacity: 1;
+}
+
+/* Team-specific toast colors */
+.game-welcome-toast.team-red {
+    background: linear-gradient(135deg, #ff4757 0%, #ff6348 100%);
+    box-shadow: 0 10px 30px rgba(255, 71, 87, 0.5);
+}
+
+.game-welcome-toast.team-green {
+    background: linear-gradient(135deg, #2ed573 0%, #26de81 100%);
+    box-shadow: 0 10px 30px rgba(46, 213, 115, 0.5);
+}
+
+/* ===== Game Leaderboards (Compact - Inside Form) ===== */
+#gameLeaderboards {
+    display: none;
+    padding: 20px;
+    background: #ffffff;
+}
+
+/* Compact Header: Score | Timer | Score */
+.game-compact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 2px solid #9333ea;
+}
+
+.team-score-display {
+    flex: 1;
+    text-align: center;
+}
+
+.team-score-display .score-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.team-score-display.red .score-value {
+    color: #ff4757;
+}
+
+.team-score-display.green .score-value {
+    color: #2ed573;
+}
+
+.team-score-display .score-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.game-timer-compact {
+    flex: 0 0 100px;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: #667eea;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border: 2px solid #764ba2;
+}
+
+/* Timer color variations */
+.game-timer-compact.timer-warmup {
+    background: #f39c12;
+    border-color: #e67e22;
+    animation: warmup-pulse 0.8s ease-in-out infinite;
+}
+
+/* Team-specific timer colors (for logged-in players) */
+.game-timer-compact.timer-red-team {
+    background: #ff4757;
+    border-color: #ff6348;
+}
+
+.game-timer-compact.timer-green-team {
+    background: #2ed573;
+    border-color: #26de81;
+}
+
+/* Time-based colors (fallback for non-logged-in viewers) */
+.game-timer-compact.timer-safe {
+    background: #2ed573;
+    border-color: #26de81;
+}
+
+.game-timer-compact.timer-warning {
+    background: #ffa502;
+    border-color: #ff6348;
+}
+
+.game-timer-compact.timer-danger {
+    background: #ff4757;
+    border-color: #ff6348;
+    animation: timer-pulse 1s ease-in-out infinite;
+}
+
+@keyframes warmup-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 25px rgba(243, 156, 18, 0.9);
+    }
+}
+
+@keyframes timer-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Two-column leaderboards */
+.game-leaderboard-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.team-leaderboard {
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9f9f9;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.team-leaderboard.red {
+    border: 2px solid #ff4757;
+    background: rgba(255, 71, 87, 0.05);
+}
+
+.team-leaderboard.green {
+    border: 2px solid #2ed573;
+    background: rgba(46, 213, 115, 0.05);
+}
+
+.team-leaderboard.player-team {
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+}
+
+.team-leaderboard h4 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+.team-leaderboard.red h4 {
+    color: #ff4757;
+    border-bottom-color: #ff4757;
+}
+
+.team-leaderboard.green h4 {
+    color: #2ed573;
+    border-bottom-color: #2ed573;
+}
+
+.compact-leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.leaderboard-player:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(-3px);
+}
+
+.leaderboard-player.rank-1 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    font-weight: bold;
+}
+
+.leaderboard-player.rank-2 {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.3) 0%, rgba(192, 192, 192, 0.1) 100%);
+    border: 1px solid rgba(192, 192, 192, 0.6);
+}
+
+.leaderboard-player.rank-3 {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.3) 0%, rgba(205, 127, 50, 0.1) 100%);
+    border: 1px solid rgba(205, 127, 50, 0.6);
+}
+
+.player-rank {
+    font-weight: bold;
+    color: #666;
+    min-width: 25px;
+    font-size: 0.85rem;
+}
+
+.player-name {
+    flex: 1;
+    margin: 0 10px;
+    color: #333;
+    font-weight: 500;
+}
+
+.player-score {
+    font-weight: bold;
+    color: #667eea;
+    font-size: 1rem;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .game-header {
+        flex-direction: column;
+    }
+
+    .team-total, .game-timer {
+        width: 100%;
+    }
+
+    .leaderboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    #gameOnIndicator {
+        top: 10px;
+        right: 10px;
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .game-registration-modal {
+        padding: 30px 20px;
+    }
+}
+
+/* ===== Game View Controls ===== */
+.game-view-controls {
+    position: fixed;
+    bottom: 88px; /* 20px (settings bottom) + 56px (settings height) + 12px (gap) */
+    left: 20px;
+    display: flex;
+    flex-direction: column-reverse; /* Buttons stack with logout on top */
+    gap: 12px;
+    z-index: 10000;
+}
+
+.game-round-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.game-round-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Tooltip on hover */
+.game-round-btn::after {
+    content: attr(title);
+    position: absolute;
+    left: 70px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: normal;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10001;
+    direction: rtl;
+}
+
+.game-round-btn:hover::after {
+    opacity: 1;
+}
+
+.toggle-view-btn {
+    border-color: #667eea;
+}
+
+.toggle-view-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: #764ba2;
+}
+
+.logout-btn {
+    border-color: #ff4757;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 71, 87, 0.1);
+    border-color: #ff6348;
+}
+
+/* ===== Scrollbar Styling ===== */
+.team-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.team-column::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.team-column::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.team-column::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

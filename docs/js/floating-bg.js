@@ -162,10 +162,15 @@ class FloatingBackground {
         
         // Show +500 points
         this.showPointsAnimation(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        
-        // Update score
+
+        // Update score (local - always works)
         this.updateScore(500);
-        
+
+        // Submit to game server (only if game mode active)
+        if (window.gameClient && window.gameClient.isActive()) {
+            window.gameClient.submitScore(500);
+        }
+
         // Remove logo and recreate after delay
         setTimeout(() => {
             const index = this.logos.indexOf(logoData);
@@ -371,7 +376,7 @@ class FloatingBackground {
                 <input type="range" id="messageCountSlider" min="1" max="4" value="1" step="1" style="width: 100%;">
             </div>
 
-            <div style="margin-bottom: 0;">
+            <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
                     מהירות הודעות: <span id="messageSpeedValue">איטי</span>
                 </label>
@@ -380,6 +385,13 @@ class FloatingBackground {
                     <span>איטי</span>
                     <span>מהיר (X2)</span>
                 </div>
+            </div>
+
+            <div style="margin-bottom: 0; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                <label style="display: flex; align-items: center; cursor: pointer; font-weight: 600; color: #333;">
+                    <input type="checkbox" id="clickToExpandMode" style="margin-left: 10px; width: 18px; height: 18px; cursor: pointer;">
+                    <span>דורש קליק לפתיחת תוכן הוובינר (במקום ריחוף)</span>
+                </label>
             </div>
         `;
 

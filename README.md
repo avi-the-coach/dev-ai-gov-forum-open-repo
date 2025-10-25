@@ -1,318 +1,470 @@
-# Smart Webinar Registration Form
-## AI Development Workshop - November 2, 2025
+# Webinar Registration Form - Real-Time Team Game
 
-### Overview
-An advanced, interactive webinar registration form featuring real-time analytics, gamification elements, and multi-channel submission. Built as a demonstration of AI-assisted development capabilities.
+Interactive webinar registration application with optional real-time team competition mode.
 
----
-
-## Credits
-
-**Designed & Instructed by**: [Avi Bachar (אבי בכר)](https://www.linkedin.com/in/avi-bachar/)  
-*Organizational Coach for Agile AI Transformation (מאמן ארגוני לטרנספורמציית AI אג'ילית)*
-
-**Fully Implemented by**: [Claude Code](https://claude.com/claude-code)  
-*This smart webform showcases the capabilities of AI-assisted development through Claude Code*
-
----
-
-## Project Structure
-```
-webinar-registration/
-├── docs/
-│   ├── webinar-registration-ai-in-dev-v2.html     # Main HTML file
-│   ├── css/
-│   │   ├── styles.css                              # Main styles
-│   │   ├── animations.css                          # Floating logos & fireworks
-│   │   └── styles-analytics-addon.css              # Analytics checkbox styling
-│   ├── js/
-│   │   ├── form-handler.js                         # Form validation & analytics
-│   │   ├── fireworks.js                            # Header fireworks animation
-│   │   ├── floating-bg.js                          # Floating logos with explosions
-│   │   ├── expand-description.js                   # Webinar description expansion
-│   │   ├── inspirational-talk.js                   # Context-aware speech bubbles
-│   │   └── alien-spaceship.js                      # Alien spaceship animation
-│   ├── assets/
-│   │   ├── ai-dev-forum-logo.png                   # AI Coding logo (transparent)
-│   │   ├── avi-bachar-profile-pic.jpg              # Instructor photo
-│   │   ├── bubble-*.png                            # Speech bubble graphics
-│   │   ├── alian-go-right.png                      # Alien spaceship (right)
-│   │   ├── alian-go-left.png                       # Alien spaceship (left)
-│   │   └── webinar-preview-v2.png                  # Social media preview
-│   └── data/
-│       └── inspirational-phrases.json              # Conversational phrases database
-├── specs/
-│   ├── inspirational-talk.md                       # Feature specification
-│   └── bubble-color-change-instructions.md         # Design instructions
-└── README.md                                        # This file
-```
+**Live Demo**: [GitHub Pages](https://avi-the-coach.github.io/dev-ai-gov-forum-open-repo/webinar-registration-ai-in-dev-v2.html)
+**Repository**: https://github.com/avi-the-coach/dev-ai-gov-forum-open-repo
 
 ---
 
 ## Features
 
-### 🎨 Visual & Interactive Elements
+### Standalone Mode (Always Works)
+- ✅ Webinar registration form
+- ✅ Interactive floating logos and alien spaceships
+- ✅ Local scoring system
+- ✅ Form submission via Gmail/WhatsApp/Outlook
+- ✅ Works without server or JavaScript
 
-#### **1. Floating Background Logos**
-- 8 AI coding logos floating with randomized speeds
-- Double-click to explode logos (+500 points)
-- Configurable count (4-20) and speed via settings panel
-- Score tracking with live display
-
-#### **2. Fireworks Animation**
-- Hover over black header for continuous fireworks
-- Click for targeted firework effects
-- Multi-layered particle system
-- Web Audio API sound effects
-
-#### **3. Alien Spaceships** 🛸
-- Periodic alien spaceship fly-bys (every 15±5 seconds)
-- Erratic slalom motion pattern (hard to catch!)
-- Spawns from left or right side randomly
-- Double-click to explode (+1000 points, green glowing)
-- Unique sci-fi explosion sound effect
-- Flies behind the form (z-index: 0)
-
-#### **4. Inspirational Speech Bubbles**
-- Context-aware conversational messages
-- Appear based on user interactions
-- Conditions: field status, tool selection, form completion
-- Hover to pause (with beep sound)
-- Parameter replacement (e.g., "<fullName>" → user's name)
-- Hebrew text in decorative speech bubbles
-
-#### **5. Expandable Webinar Description**
-- Hover over instructor info to reveal full description
-- Smooth expand/collapse animation
-- Tracked in analytics
-
-#### **6. Settings Control Panel** ⚙️
-- Accessible via gear icon (bottom-left)
-- Controls:
-  - Logo count (4-20)
-  - Logo speed (5 presets)
-  - Message count (1-4 simultaneous)
-  - Message speed (slow/fast)
-
-### 📊 Analytics & Tracking
-
-#### **Opt-In Analytics Checkbox**
-- Hebrew tooltip explaining data collection
-- Checked by default (user can opt-out)
-- Positioned above submit buttons
-
-#### **Collected Data** (when opted-in):
-- **Time on page**: Minutes:seconds spent
-- **Browser**: Chrome, Edge, Safari, Firefox
-- **OS**: Windows, MacOS, Linux, Android, iOS
-- **Source**: Referrer domain (where link was clicked)
-- **Fireworks clicks**: Header interactions
-- **Content expansion**: Did user view full description (yes/no)
-- **Score**: Total points from logo/alien explosions
-
-#### **Data Format** (appended to message):
-```
-----------
-
-time: 3:45
-browser: Chrome
-os: Windows
-source: linkedin.com
-fw clicks: 2
-content: yes
-score: 2500
-```
-
-### 📝 Form Fields
-
-#### **Required Fields:**
-1. **Full Name** (שם מלא)
-2. **Email** (כתובת דוא"ל) - with validation
-3. **Organization** (ארגון)
-4. **Job Title** (תפקיד)
-
-#### **AI Tools Used** (multi-select):
-- Claude Code
-- Gemini CLI/Code Assist
-- Amazon Q
-- CoPilot
-- Not using but want to
-- Other (with custom text input)
-
-#### **Completion Questions**:
-1. לדעתי AI זה...
-2. ככל שאני זוכר לפני AI...
-3. בעוד 5 שנים AI...
-
-### 📤 Submission Options
-
-**Desktop:**
-- 📧 Gmail (opens web interface)
-- 📨 Outlook (opens desktop app)
-- 📱 WhatsApp
-
-**Mobile:**
-- 📧 Email (mailto)
-- 📱 WhatsApp
-
-All channels include:
-- Pre-filled subject/message
-- Form data formatted
-- Optional analytics data
+### Game Mode (Optional)
+- 🎮 Real-time Red vs Green team competition
+- 🏆 Live leaderboards synchronized across all players
+- ⏱️ Customizable game timer (30s to 5min)
+- 👥 Auto-balanced team assignment
+- 🔐 Secure admin panel with file-based authentication
+- 📊 Player management and IP blocking
+- 🚫 Progressive enhancement - form works even if server is down
 
 ---
 
-## 🔊 Sound Effects
+## 🚀 Quick Start
 
-All sounds generated via **Web Audio API** (no external files):
+### Prerequisites
+- Node.js 14+ installed
+- Git installed
 
-1. **Fireworks**: High-pitched whistle (800Hz → 200Hz)
-2. **Logo Explosion**: Deep boom (150Hz → 30Hz) + crack (1200Hz → 100Hz)
-3. **Alien Explosion**: Sci-fi swoosh (2000Hz → 50Hz) + metallic clang
-4. **Bubble Hover**: Pleasant beep (800Hz, 0.1s)
-
----
-
-## 🎮 Gamification
-
-### **Score System:**
-- Logo explosions: **+500 points** (gold)
-- Alien explosions: **+1000 points** (green)
-- Live score display (top-left corner)
-- Score included in analytics data
-
-### **Interactive Elements:**
-- Double-click floating logos
-- Double-click alien spaceships (challenging!)
-- Hover speech bubbles to pause
-- Click header for fireworks
-
----
-
-## Technical Details
-
-### **Technologies:**
-- Pure HTML/CSS/JavaScript (no frameworks)
-- Web Audio API for sound
-- Canvas API for fireworks
-- RequestAnimationFrame for smooth animations
-- RTL (Right-to-Left) Hebrew support
-
-### **Browser Compatibility:**
-- Chrome, Edge, Safari, Firefox
-- Desktop & Mobile responsive
-- Requires JavaScript enabled
-
-### **Security:**
-- No backend required
-- No API keys exposed
-- Client-side only (GitHub Pages compatible)
-- User sends data via their own email/WhatsApp client
-
-### **Performance:**
-- Optimized animations (requestAnimationFrame)
-- CSS hardware acceleration
-- Lazy sound initialization
-- Efficient DOM manipulation
-
----
-
-## How to Use
-
-### **Local Development:**
+### 1. Clone Repository
 ```bash
-# Open in browser (no server needed)
-open docs/webinar-registration-ai-in-dev-v2.html
+git clone https://github.com/avi-the-coach/dev-ai-gov-forum-open-repo.git
+cd dev-ai-gov-forum-open-repo
 ```
 
-### **Deploy to GitHub Pages:**
-1. Push to GitHub repository
-2. Settings → Pages → Select main branch
-3. Set `/docs` as root folder
-4. Access via: `https://username.github.io/repo-name/webinar-registration-ai-in-dev-v2.html`
+### 2. Run Setup Script
 
----
-
-## Configuration
-
-### **Email Recipient:**
-Edit `js/form-handler.js`:
-```javascript
-to=avi.bachar@agileprimero.com
+**Windows:**
+```batch
+setup.bat
 ```
 
-### **WhatsApp Number:**
-Edit `js/form-handler.js`:
-```javascript
-https://wa.me/972556665056
+**macOS/Linux:**
+```bash
+node setup.js
 ```
 
-### **Animation Settings:**
-- Use in-page settings panel (⚙️ icon)
-- Or edit JavaScript files directly:
-  - `js/floating-bg.js` - Logo behavior
-  - `js/alien-spaceship.js` - Alien spawn rate
-  - `js/inspirational-talk.js` - Message frequency
+The setup script will ask you:
+- Server URL for admin panel (default: `http://localhost:3000`)
+- CORS origin (default: `http://localhost:8080`)
+- Server URL for clients (default: `http://localhost:3000`)
 
-### **Phrases & Messages:**
-Edit `docs/data/inspirational-phrases.json`:
-```json
-{
-  "phrases": [
-    {
-      "text": "Your Hebrew message here",
-      "condition": "field_filled:fullName"
-    }
-  ]
-}
+### 3. Save Admin Credentials
+
+⚠️ **CRITICAL SECURITY STEP:**
+
+After setup completes:
+
+1. 🔒 **SAVE** `admin-credentials.json` to a **SAFE location**
+   - USB drive
+   - Password manager
+   - Encrypted folder
+   - **NOT in the project folder!**
+
+2. 🗑️ **DELETE** `admin-credentials.json` from project folder
+   ```bash
+   # Windows
+   del admin-credentials.json
+
+   # macOS/Linux
+   rm admin-credentials.json
+   ```
+
+3. ⚠️ **NEVER** commit or share this file
+
+### 4. Install Server Dependencies
+```bash
+cd server
+npm install
 ```
 
-**Available Conditions:**
-- `field_filled:fieldId`
-- `field_empty:fieldId`
-- `tool_selected:toolName`
-- `form_complete` / `form_incomplete`
-- `fireworks_never_clicked` / `fireworks_clicked_once`
+### 5. Start Server
+```bash
+node server.js
+```
+
+Or for development with auto-reload:
+```bash
+npm run dev
+```
+
+Server will start on `http://localhost:3000`
+
+### 6. Access Admin Panel
+
+1. Open `docs/admin-panel.html` in your browser
+2. Click "🔑 Admin Login"
+3. Select your saved `admin-credentials.json` file
+4. You're now authenticated! 🎉
+
+### 7. Share with Participants
+
+Share the client URL with your webinar participants:
+```
+docs/webinar-registration-ai-in-dev-v2.html
+```
+
+Or via GitHub Pages:
+```
+https://avi-the-coach.github.io/dev-ai-gov-forum-open-repo/webinar-registration-ai-in-dev-v2.html
+```
 
 ---
 
-## Development Philosophy
+## 📁 Project Structure
 
-This project demonstrates **AI-assisted development** in action:
-
-✅ **Complete Feature Implementation** - From concept to production  
-✅ **Responsive Design** - Works on all devices  
-✅ **Gamification** - Engaging user experience  
-✅ **Analytics** - Privacy-respecting data collection  
-✅ **Accessibility** - RTL support, tooltips, clear UI  
-✅ **Performance** - Optimized animations and sound  
-✅ **No Dependencies** - Pure vanilla JavaScript  
-
-Every feature was designed by **Avi Bachar** and implemented by **Claude Code**, showcasing the potential of human-AI collaboration in software development.
+```
+/
+├── setup.js                    # Setup script (generates configs)
+├── setup.bat                   # Windows wrapper
+├── .gitignore                  # Git security rules
+│
+├── server/                     # Backend server
+│   ├── .env                    ❌ Git ignored (secrets)
+│   ├── .env.example            ✅ Template
+│   ├── server.js               # Entry point
+│   ├── config.js               # Configuration
+│   ├── game-manager.js         # Game state & timer
+│   ├── player-manager.js       # Player management
+│   ├── websocket-handler.js    # WebSocket events
+│   └── package.json
+│
+├── docs/                       # Frontend (GitHub Pages)
+│   ├── admin-panel.html        # Admin interface
+│   ├── webinar-registration-ai-in-dev-v2.html
+│   ├── config.js               # Client server URL
+│   ├── config.example.js       ✅ Template
+│   ├── js/
+│   │   ├── game-client.js      # WebSocket client
+│   │   ├── game-ui.js          # Game UI
+│   │   ├── form-handler.js     # Form logic
+│   │   ├── floating-bg.js      # Floating logos
+│   │   └── alien-spaceship.js  # Alien animations
+│   └── css/
+│       ├── game-styles.css
+│       └── styles.css
+│
+├── specs/                      # Design documentation
+│   ├── real-time-team-game-spec.md
+│   └── secure-configuration-spec.md
+│
+└── admin-credentials.json      ❌ Git ignored (delete after setup!)
+```
 
 ---
 
-## About
+## 🔐 Security
 
-**Webinar**: *AI Development Using AI - Methodologies and Demonstration with Claude Code*  
-**Date**: November 2, 2025 at 14:30 (1.5 hours)  
-**Format**: Online via Zoom  
-**Language**: Hebrew (עברית)
+### Secrets Management
 
-**Instructor**: Avi Bachar - Organizational Coach for Agile AI Transformation
+**Server Secret** (`ADMIN_SECRET`):
+- Generated once by setup script
+- Stored only in `server/.env` (git ignored)
+- Never exposed to clients
+- Validated on every admin action
+
+**Admin Credentials File** (`admin-credentials.json`):
+- User saves to secure location
+- Deleted from project after setup
+- Can be regenerated if lost (run `node setup.js` again)
+- Never committed to git
+
+**Client Config** (`docs/config.js`):
+- Server URL only (not secret)
+- Can be committed safely
+
+### Security Best Practices
+
+✅ Keep `admin-credentials.json` private and secure
+✅ Never commit `.env` files
+✅ Use HTTPS in production
+✅ Change default server URLs for production
+✅ If credentials lost, run `node setup.js` to regenerate
+
+❌ Never share `admin-credentials.json`
+❌ Never commit secrets to git
+❌ Never use default configs in production
 
 ---
 
-## License
+## 🎮 Game Management
 
-This project is part of the AI Development Governance Forum open repository.
+### Admin Panel Features
+
+**Game Controls:**
+- Create Game - Initialize game with selected duration
+- Start Game - Begin timer and enable scoring
+- Finish Game - End game immediately
+- Reset Scores & Restart Timer - Keep players, reset scores
+- Reset Game + Delete All Members - Full reset
+- Delete Game Completely - Remove game entirely
+
+**Dashboard:**
+- Connection status indicator
+- Game state badge (idle/registration/active/ended)
+- Player count by team (Red/Green/Total)
+- Team scores with color coding
+- Game timer with warmup countdown
+- Dual-column leaderboards
+
+**Player Management:**
+- View all players with scores
+- Delete individual players (auto-blocks IP)
+- Advanced settings to show/hide IP addresses
+- Blocked IP management
+
+### Game States
+
+1. **idle** - No game exists
+2. **registration** - Game created, players can join
+3. **active** - Timer running, scoring enabled
+4. **ended** - Final scores frozen
+
+### Game Durations
+
+- 30 seconds
+- 60 seconds (1 minute) - Default
+- 90 seconds (1.5 minutes)
+- 120 seconds (2 minutes)
+- 300 seconds (5 minutes)
 
 ---
 
-**Created**: January 2025  
-**Last Updated**: January 2025  
-**Repository**: [dev-ai-gov-forum-open-repo](https://github.com/avi-the-coach/dev-ai-gov-forum-open-repo)
+## 🌐 Production Deployment
+
+### Deploy Server (Google Cloud Platform)
+
+1. **Create GCP VM Instance**
+   ```bash
+   # SSH into your VM
+   gcloud compute ssh your-vm-name
+   ```
+
+2. **Clone and Setup**
+   ```bash
+   git clone <your-repo-url>
+   cd webinar-registration
+   node setup.js
+   ```
+
+   When prompted:
+   - Server URL: `https://your-gcp-domain.com`
+   - CORS origin: `https://your-github-username.github.io`
+   - Client server URL: `https://your-gcp-domain.com`
+
+3. **Install Dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
+
+4. **Start with PM2** (process manager)
+   ```bash
+   npm install -g pm2
+   pm2 start server.js --name webinar-game
+   pm2 save
+   pm2 startup
+   ```
+
+5. **Save Admin Credentials**
+   - Download `admin-credentials.json` to your local machine
+   - Delete from server: `rm ../admin-credentials.json`
+
+### Deploy Client (GitHub Pages)
+
+1. **Update Client Config**
+   ```bash
+   # Edit docs/config.js
+   window.GAME_CONFIG = {
+       SERVER_URL: 'https://your-gcp-domain.com'
+   };
+   ```
+
+2. **Commit and Push**
+   ```bash
+   git add docs/config.js
+   git commit -m "Update server URL for production"
+   git push origin main
+   ```
+
+3. **Enable GitHub Pages**
+   - Go to repository Settings → Pages
+   - Source: Deploy from branch `main`
+   - Folder: `/docs`
+   - Save
+
+4. **Access URLs**
+   - Client: `https://your-github-username.github.io/repo-name/webinar-registration-ai-in-dev-v2.html`
+   - Admin: `https://your-github-username.github.io/repo-name/admin-panel.html`
 
 ---
 
-*This smart webform is a living demonstration of what AI-assisted development can achieve. Every feature, animation, and interaction was crafted through natural language conversation between Avi Bachar and Claude Code.*
+## 🧪 Testing
+
+### Local Testing Checklist
+
+- [ ] Run `node setup.js` successfully
+- [ ] Verify `server/.env` created
+- [ ] Verify `admin-credentials.json` created
+- [ ] Verify `docs/config.js` created
+- [ ] Start server: `cd server && node server.js`
+- [ ] Server starts without errors
+- [ ] Open `docs/admin-panel.html`
+- [ ] See login screen
+- [ ] Upload `admin-credentials.json`
+- [ ] Admin dashboard appears
+- [ ] All admin controls work
+- [ ] Create game
+- [ ] Open client in another tab
+- [ ] Click "Game On" and register
+- [ ] Player appears in admin panel
+- [ ] Submit score (blast logo/alien)
+- [ ] Score updates in admin panel
+- [ ] Refresh admin panel - requires re-authentication ✓
+- [ ] Test with invalid credentials - shows error ✓
+
+### Security Testing
+
+- [ ] Verify secrets not in git history
+- [ ] Verify `.gitignore` working
+- [ ] Verify admin secret not in localStorage
+- [ ] Verify admin commands validate secret
+- [ ] Test connection without credentials - fails ✓
+- [ ] Test command without secret - fails ✓
+
+---
+
+## 🐛 Troubleshooting
+
+### Setup Issues
+
+**Error: "ADMIN_SECRET not found in .env file"**
+- Run `node setup.js` to generate configuration files
+- Ensure `server/.env` exists
+
+**Error: "Node.js is not installed"**
+- Install Node.js from https://nodejs.org/
+- Verify: `node --version`
+
+### Server Issues
+
+**Server won't start**
+- Check if port 3000 is already in use
+- Try changing PORT in `server/.env`
+
+**CORS errors in browser console**
+- Update `CORS_ORIGIN` in `server/.env`
+- Restart server after changes
+
+### Admin Panel Issues
+
+**"Authentication failed" error**
+- Verify you're using the correct `admin-credentials.json` file
+- Ensure server is running
+- Check server logs for authentication attempts
+
+**Admin panel returns to login after refresh**
+- This is expected behavior (security feature)
+- You must re-upload credentials after every page refresh
+
+**Can't upload credentials file**
+- Ensure file is valid JSON
+- Verify file contains `adminSecret` and `serverUrl` fields
+
+### Client Issues
+
+**"Game On" button doesn't appear**
+- Admin must create a game first
+- Check server is running
+- Verify `docs/config.js` has correct SERVER_URL
+
+**Can't register as player**
+- Check if your IP is blocked (admin panel → Advanced Settings)
+- Verify server connection in browser console
+- Ensure game is in registration or active state
+
+---
+
+## 📚 Documentation
+
+- [Real-Time Team Game Specification](specs/real-time-team-game-spec.md)
+- [Secure Configuration Specification](specs/secure-configuration-spec.md)
+
+---
+
+## 🤝 Contributing
+
+This is an open-source project for educational webinar demonstrations. Contributions welcome!
+
+### Setup for Development
+
+1. Fork the repository
+2. Clone your fork
+3. Run `node setup.js`
+4. Make your changes
+5. Test thoroughly
+6. Submit pull request
+
+### Development Workflow
+
+```bash
+# Start server with auto-reload
+cd server
+npm run dev
+
+# Server restarts automatically on file changes
+```
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use for your own webinars and presentations!
+
+---
+
+## 🙋 Support
+
+**Issues**: https://github.com/avi-the-coach/dev-ai-gov-forum-open-repo/issues
+
+**Documentation**: See `/specs` folder for detailed technical specifications
+
+---
+
+## 🎯 Webinar Demo Tips
+
+### Before the Webinar
+
+1. ✅ Run setup on production server
+2. ✅ Test admin panel authentication
+3. ✅ Test player registration flow
+4. ✅ Verify GitHub Pages deployment
+5. ✅ Keep `admin-credentials.json` file ready
+
+### During the Webinar
+
+1. 📺 Share client URL in chat
+2. 🎮 Open admin panel (don't share screen until login complete)
+3. 🔑 Upload credentials file (off-screen)
+4. 📊 Share admin panel screen (uncheck "Advanced Settings" to hide IPs)
+5. ▶️ Create game when ready
+6. 🏁 Start game when participants are registered
+7. 🎉 Let the competition begin!
+
+### After the Webinar
+
+1. 🛑 Finish or delete game
+2. 📊 Screenshot final leaderboard
+3. 🗑️ Clear player data if desired
+4. 💾 Save server logs for analysis
+
+---
+
+**Built with ❤️ for AI development education**

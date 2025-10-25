@@ -1,0 +1,59 @@
+# ================================
+# Security - NEVER commit secrets!
+# ================================
+
+# Server secrets
+server/.env
+
+# Admin credentials - User must save locally and delete from project
+admin-credentials.json
+
+# ================================
+# Dependencies
+# ================================
+
+node_modules/
+package-lock.json
+
+# ================================
+# Logs
+# ================================
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server/logs/
+
+# ================================
+# OS Files
+# ================================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ================================
+# IDE / Editor
+# ================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ================================
+# Optional - Can be committed
+# ================================
+
+# Uncomment if you want to ignore client config (optional)
+# docs/config.js

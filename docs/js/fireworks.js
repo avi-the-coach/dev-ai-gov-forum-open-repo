@@ -62,7 +62,7 @@ class Firework {
 
 // Straight-line click firework class
 class ClickFirework {
-    constructor(startX, startY, clickX, clickY, endX, endY) {
+    constructor(startX, startY, clickX, clickY, endX, endY, customColor = null) {
         this.x = startX;
         this.y = startY;
         this.clickX = clickX;
@@ -80,7 +80,7 @@ class ClickFirework {
         this.vy = (dy / distance) * this.speed;
 
         this.colors = ['#9333ea', '#a855f7', '#c084fc', '#e879f9', '#fbbf24', '#f59e0b'];
-        this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        this.color = customColor || this.colors[Math.floor(Math.random() * this.colors.length)];
         this.trail = []; // Store trail positions
         this.maxTrailLength = 15;
         this.hasExploded = false;
@@ -408,3 +408,28 @@ header.addEventListener('click', function(event) {
     const sound2 = setTimeout(() => playFireworkSound(), 300);
     clickTimeouts.push(sound1, sound2);
 });
+
+// Global fireworks API for programmatic triggering
+window.fireworks = {
+    /**
+     * Create a firework at specific position with custom color
+     * @param {number} x - X position (pixels from left)
+     * @param {number} y - Y position (pixels from top)
+     * @param {string} color - Hex color code (e.g., '#ff4757')
+     */
+    createFirework: function(x, y, color) {
+        // Make sure animation is running
+        if (clickFireworks.length === 0 && fireworks.length === 0 && particles.length === 0) {
+            animateFireworks();
+        }
+
+        // Create custom colored firework starting from bottom center
+        const startX = canvas.width / 2;
+        const startY = canvas.height;
+        const fw = new ClickFirework(startX, startY, x, y, x, y, color);
+        clickFireworks.push(fw);
+
+        // Play sound
+        playFireworkSound();
+    }
+};

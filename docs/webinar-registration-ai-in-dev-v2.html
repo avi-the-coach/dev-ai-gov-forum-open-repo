@@ -36,10 +36,43 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/styles-analytics-addon.css">
+    <link rel="stylesheet" href="css/game-styles.css">
 </head>
 <body>
     <!-- Floating Background -->
     <div class="floating-bg" id="floatingBg"></div>
+
+    <!-- Game On Indicator (hidden by default) -->
+    <div id="gameOnIndicator" style="display: none;">🎮 Game On!</div>
+
+    <!-- Game Registration Popup (hidden by default) -->
+    <div id="gameRegistrationPopup" style="display: none;">
+        <div class="game-registration-modal">
+            <button class="close-game-popup">&times;</button>
+            <h2>🎮 הצטרפות למשחק</h2>
+            <p>הירשם למשחק הצוותים והתחרה בזיקוקים וחייזרים!<br>כל נקודה נצברת לטובת הצוות שלך.</p>
+            <p style="font-size: 0.9rem; color: #888; margin-top: 5px;">
+                💡 כבר רשום? הכנס את אותו שם וסיסמה כדי להתחבר מחדש עם הנקודות שלך.
+            </p>
+
+            <form id="gameRegistrationForm">
+                <div class="game-form-group">
+                    <label for="gamePlayerName">שם:</label>
+                    <input type="text" id="gamePlayerName" placeholder="הכנס את שמך" required>
+                </div>
+
+                <div class="game-form-group">
+                    <label for="gamePlayerPassword">סיסמה:</label>
+                    <input type="password" id="gamePlayerPassword" placeholder="סיסמה (לחיבור מחדש)" required>
+                </div>
+
+                <button type="submit" class="game-register-btn">הרשם / התחבר למשחק</button>
+
+                <div id="gameRegistrationError" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
 
     <div class="container">
         <!-- Header -->
@@ -107,6 +140,37 @@
                     <p>הוובינר מיועד למפתחים, ארכיטקטים, ומנהלי פיתוח, מנהלי מוצר ובכלל <strong>כל מי שלא מפחדים מטכנולוגיה ומעוניינים לשלב AI בתהליכי העבודה שלהם</strong> וללמוד איך לפתח לעצמם סביבת עבודה שהולכת ומשתפרת ומאפשרת פיתוח מוצרים באפקטיביות גדולה.</p>
                     <p>פיתוח מוצרים מבוססי AI - <strong>הכי טוב לממש באמצעות AI</strong> - ואנחנו נתמקד באיך אפשר לעשות את זה טוב.</p>
                     <p><strong>מוזמנים למלא את הטופס ולשלוח - בתגובה תקבלו זימון ליומן.</strong></p>
+                </div>
+            </div>
+
+            <!-- Game Leaderboards (shown below description when in game mode) -->
+            <div id="gameLeaderboards" style="display: none;">
+                <!-- Compact header: Red Score | Timer | Green Score -->
+                <div class="game-compact-header">
+                    <div class="team-score-display red">
+                        <div class="score-value" id="redTeamTotal">0</div>
+                        <div class="score-label">אדום</div>
+                    </div>
+
+                    <div class="game-timer-compact" id="gameTimer">--:--</div>
+
+                    <div class="team-score-display green">
+                        <div class="score-value" id="greenTeamTotal">0</div>
+                        <div class="score-label">ירוק</div>
+                    </div>
+                </div>
+
+                <!-- Two-column leaderboards -->
+                <div class="game-leaderboard-columns">
+                    <div class="team-leaderboard red" id="redTeamColumn">
+                        <h4>🔴 צוות אדום</h4>
+                        <ul class="compact-leaderboard-list" id="redTeamList"></ul>
+                    </div>
+
+                    <div class="team-leaderboard green" id="greenTeamColumn">
+                        <h4>🟢 צוות ירוק</h4>
+                        <ul class="compact-leaderboard-list" id="greenTeamList"></ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -242,5 +306,10 @@
     <script src="js/expand-description.js"></script>
     <script src="js/inspirational-talk.js"></script>
     <script src="js/alien-spaceship.js"></script>
+
+    <!-- Game Mode Scripts (loaded but inactive unless server available) -->
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <script src="js/game-client.js"></script>
+    <script src="js/game-ui.js"></script>
 </body>
 </html>

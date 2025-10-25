@@ -218,7 +218,12 @@ class AlienSpaceship {
         
         // Show points
         this.showAlienPoints(centerX, centerY);
-        
+
+        // Submit to game server (only if game mode active)
+        if (window.gameClient && window.gameClient.isActive()) {
+            window.gameClient.submitScore(1000);
+        }
+
         // Remove after animation
         setTimeout(() => {
             alien.remove();

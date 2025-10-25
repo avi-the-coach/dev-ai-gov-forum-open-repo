@@ -13,9 +13,9 @@ class GameClient {
                        window.location.hostname === '127.0.0.1' ||
                        window.location.protocol === 'file:';
 
-        this.SERVER_URL = isLocal
-            ? 'http://localhost:3000'
-            : 'https://your-gcp-server.com';  // TODO: Update for production
+        // Use GAME_CONFIG if available, otherwise fall back to localhost
+        this.SERVER_URL = window.GAME_CONFIG?.SERVER_URL ||
+                         (isLocal ? 'http://localhost:3000' : 'http://34.165.26.176:3001');
 
         // State
         this.connected = false;

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - /home/avi_bachar/.n8n:/home/node/.n8n
+    environment:
+      - N8N_HOST=n8n.agileprimero.com
+      - WEBHOOK_URL=https://n8n.agileprimero.com/
+      - N8N_LISTEN_ADDRESS=0.0.0.0
+    restart: unless-stopped
+    depends_on:
+      - gotenberg
+    networks:
+      - n8n-network
+
+  gotenberg:
+    image: gotenberg/gotenberg:8
+    container_name: gotenberg
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - n8n-network
+
+  webinar-game:
+    build:
+      context: ./webinar-server
+      dockerfile: Dockerfile
+    container_name: webinar-game
+    ports:
+      - "3001:8080"
+    environment:
+      - PORT=8080
+      - ADMIN_SECRET=db68f563-e7f9-4acd-bfea-7008cd611972
+      - CORS_ORIGIN=*
+    restart: unless-stopped
+    networks:
+      - n8n-network
+
+networks:
+  n8n-network:
+    driver: bridge

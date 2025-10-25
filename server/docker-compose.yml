@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  webinar-game:
+    build: .
+    container_name: webinar-game-server
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    environment:
+      - PORT=8080
+      - ADMIN_SECRET=${ADMIN_SECRET}
+      - CORS_ORIGIN=*
+    networks:
+      - webinar-network
+
+networks:
+  webinar-network:
+    driver: bridge

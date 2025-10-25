@@ -23,6 +23,9 @@ Interactive webinar registration application with optional real-time team compet
 - 👥 Auto-balanced team assignment
 - 🔐 Secure admin panel with file-based authentication
 - 📊 Player management and IP blocking
+- 🎨 Team-colored messages (Hebrew) with player names
+- ⏸️ Hover-pause message system
+- 🖱️ Click-to-expand content mode (optional)
 - 🚫 Progressive enhancement - form works even if server is down
 
 ---
@@ -239,6 +242,25 @@ https://avi-the-coach.github.io/dev-ai-gov-forum-open-repo/webinar-registration-
 
 ## 🌐 Production Deployment
 
+📘 **See [DEPLOYMENT.md](DEPLOYMENT.md) for complete GCP deployment guide** (Cloud Run, Compute Engine, Docker, security checklist)
+
+### Quick Deploy - Cloud Run (Recommended)
+
+```bash
+cd server
+gcloud run deploy webinar-game-server \
+  --source . \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --set-env-vars ADMIN_SECRET=your-secret-here \
+  --set-env-vars CORS_ORIGIN=https://your-domain.com \
+  --min-instances 1 \
+  --max-instances 10
+```
+
+### Alternative - Compute Engine
+
 ### Deploy Server (Google Cloud Platform)
 
 1. **Create GCP VM Instance**
@@ -394,6 +416,7 @@ https://avi-the-coach.github.io/dev-ai-gov-forum-open-repo/webinar-registration-
 
 ## 📚 Documentation
 
+- [**GCP Deployment Guide**](DEPLOYMENT.md) - Complete guide for Cloud Run & Compute Engine
 - [Real-Time Team Game Specification](specs/real-time-team-game-spec.md)
 - [Secure Configuration Specification](specs/secure-configuration-spec.md)
 

@@ -52,6 +52,21 @@ Desktop.ini
 *~
 
 # ================================
+# Personal Deployment Files
+# ================================
+
+# Personal deployment documentation and configs
+DEPLOY-*.md
+DEPLOYMENT.md
+QUICK-DEPLOY.md
+docker-compose-*-stack.yml
+docker-compose-updated.yml
+test-*.html
+check-*.bat
+*-gcp-*.bat
+*.tar.gz
+
+# ================================
 # Optional - Can be committed
 # ================================
 

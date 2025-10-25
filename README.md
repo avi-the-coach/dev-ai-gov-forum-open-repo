@@ -240,94 +240,6 @@ https://avi-the-coach.github.io/dev-ai-gov-forum-open-repo/webinar-registration-
 
 ---
 
-## 🌐 Production Deployment
-
-📘 **See [DEPLOYMENT.md](DEPLOYMENT.md) for complete GCP deployment guide** (Cloud Run, Compute Engine, Docker, security checklist)
-
-### Quick Deploy - Cloud Run (Recommended)
-
-```bash
-cd server
-gcloud run deploy webinar-game-server \
-  --source . \
-  --platform managed \
-  --region us-central1 \
-  --allow-unauthenticated \
-  --set-env-vars ADMIN_SECRET=your-secret-here \
-  --set-env-vars CORS_ORIGIN=https://your-domain.com \
-  --min-instances 1 \
-  --max-instances 10
-```
-
-### Alternative - Compute Engine
-
-### Deploy Server (Google Cloud Platform)
-
-1. **Create GCP VM Instance**
-   ```bash
-   # SSH into your VM
-   gcloud compute ssh your-vm-name
-   ```
-
-2. **Clone and Setup**
-   ```bash
-   git clone <your-repo-url>
-   cd webinar-registration
-   node setup.js
-   ```
-
-   When prompted:
-   - Server URL: `https://your-gcp-domain.com`
-   - CORS origin: `https://your-github-username.github.io`
-   - Client server URL: `https://your-gcp-domain.com`
-
-3. **Install Dependencies**
-   ```bash
-   cd server
-   npm install
-   ```
-
-4. **Start with PM2** (process manager)
-   ```bash
-   npm install -g pm2
-   pm2 start server.js --name webinar-game
-   pm2 save
-   pm2 startup
-   ```
-
-5. **Save Admin Credentials**
-   - Download `admin-credentials.json` to your local machine
-   - Delete from server: `rm ../admin-credentials.json`
-
-### Deploy Client (GitHub Pages)
-
-1. **Update Client Config**
-   ```bash
-   # Edit docs/config.js
-   window.GAME_CONFIG = {
-       SERVER_URL: 'https://your-gcp-domain.com'
-   };
-   ```
-
-2. **Commit and Push**
-   ```bash
-   git add docs/config.js
-   git commit -m "Update server URL for production"
-   git push origin main
-   ```
-
-3. **Enable GitHub Pages**
-   - Go to repository Settings → Pages
-   - Source: Deploy from branch `main`
-   - Folder: `/docs`
-   - Save
-
-4. **Access URLs**
-   - Client: `https://your-github-username.github.io/repo-name/webinar-registration-ai-in-dev-v2.html`
-   - Admin: `https://your-github-username.github.io/repo-name/admin-panel.html`
-
----
-
 ## 🧪 Testing
 
 ### Local Testing Checklist
@@ -416,7 +328,6 @@ gcloud run deploy webinar-game-server \
 
 ## 📚 Documentation
 
-- [**GCP Deployment Guide**](DEPLOYMENT.md) - Complete guide for Cloud Run & Compute Engine
 - [Real-Time Team Game Specification](specs/real-time-team-game-spec.md)
 - [Secure Configuration Specification](specs/secure-configuration-spec.md)
 
@@ -465,10 +376,10 @@ MIT License - Feel free to use for your own webinars and presentations!
 
 ### Before the Webinar
 
-1. ✅ Run setup on production server
-2. ✅ Test admin panel authentication
-3. ✅ Test player registration flow
-4. ✅ Verify GitHub Pages deployment
+1. ✅ Run setup locally
+2. ✅ Start server
+3. ✅ Test admin panel authentication
+4. ✅ Test player registration flow
 5. ✅ Keep `admin-credentials.json` file ready
 
 ### During the Webinar
